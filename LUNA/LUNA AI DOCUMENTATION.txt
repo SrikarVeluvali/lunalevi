@@ -1,0 +1,75 @@
+LUNA AI DOCUMENTATION
+=====================
+1. To search Wikipedia for information :
+	Try Saying : "Search in wikipedia for...." or "Wikipedia...."
+
+2. To open YouTube
+	Try Saying : "Open Youtube"
+
+3. To open Google
+	Try saying : "Open Google"
+
+4. To search in google :
+	Try saying : "Open google and search..."
+
+5. To open ChatGPT
+	Try saying : "Open Chat GPT"
+
+6. To open Google Bard:
+	Try saying : "Open bard"
+
+7. To open LeetCode:
+	Try saying : "Open leetcode"
+
+8. To play music :
+	Must have: Spotify Desktop Client installed
+	Try saying : "Play Music {music name}"
+
+9. To show current time:
+	Try saying : "What's the time now?"
+
+10. To use GPT-3:
+	Try saying : "ask luna...."
+
+11. To display weather :
+	Try saying : "What's the weather today?"
+
+12. To Open VS Code:
+	Try saying : "Open vs code"
+
+13. To Open Games folder:
+	Try saying : "Open Games"
+
+14. To Open Calculator :
+	Try saying : "Open Calculator"
+
+15. To Open notepad:
+	Try saying : "open notepad"
+
+16. To remember something:
+	Try saying "remember that,......"
+	
+    To display remembered text
+	Try saying : "what do you remember"
+    Note that LUNA can only remember one sentence at a time
+	
+    To forget remembered text
+	Try saying : "forget what you remember"
+
+17. To check internet speed:
+	Try saying "Internet speed"
+
+18. To PAUSE LUNA AI for 30 seconds:
+	Try saying "Pause"
+
+19. To Exit LUNA AI:
+	Try saying "Exit" or "Quit"
+
+20. To Open LUNA Help:
+	Try saying "LUNA Help"
+
+21. To check date and day:
+	Try saying "What's the date today?"
+
+22. To check Movie Review:
+	Try saying "Movie review {movie_name}"
