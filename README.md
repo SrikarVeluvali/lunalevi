@@ -3,7 +3,7 @@
 
 ## LUNA
 
-LUNA - Stands for Logical User-friendly Navigation Assistant is an AI powered Navigation Assistant. It performs many functions like opening websites, answer queries and also check internet speed, remember stuff.
+LUNA - Stands for Logical User-friendly Navigation Assistant is an AI powered Navigation Assistant. It performs many functions like opening websites, answer queries and also check internet speed, play music, remember stuff.
 
 ## LEVI
 
