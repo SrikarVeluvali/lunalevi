@@ -27,6 +27,12 @@ import requests
 import speedtest
 # For Movies
 import imdb
+# For Json
+import json
+# For News
+import requests
+# For Settings
+import subprocess
 
 # API Setups
 # Microsoft Text To Speech API
@@ -39,13 +45,25 @@ client_credentials_manager = SpotifyClientCredentials(client_id='371d72b411c146f
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # OpenAI API for General Chat
-openai.api_key = "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"
+openai.api_key = "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"
 
 # Weather API for Weather
 w_api_key = '30d4741c779ba94c470ca1f63045390a'
 
 # Movies DataBase
 moviesDB=imdb.IMDb()
+
+
+# NewsAPI
+API_KEY = 'e3135ebe96f24e92a0115a650856f339'
+BASE_URL = 'https://newsapi.org/v2/top-headlines'
+
+# Parameters for the request
+params = {
+    'country': 'in',  # You can change this to your desired country code
+    'apiKey': API_KEY
+}
+
 
 # Functions
 # Speak Function
@@ -68,6 +86,18 @@ def wishMe():
     print("I am LUNA (v1.5). Logical User-friendly Navigation Assistant. How may I help you today?")
     speak("I am LUNA . Logical User-friendly Navigation Assistant. How may I help you today?")
 
+# Feedback Function
+def feedback(name, stars, feed):
+    feedback_data = {'name': name, 'stars': stars, 'Feedback': feed}
+    with open('feedback.json', 'a') as file:
+        json.dump(feedback_data, file)
+        file.write('\n')
+
+    print("Thankyou", name, "!", "Your feedback is valuable to us...")
+    speak("Thankyou "+ name+ "!"+" Your feedback is valuable to us...")
+    time.sleep(6)
+    os.system('cls')
+
 #Recognise the command given through microphone using Microsoft Text to Speech
 def takeCommand():
     r = sr.Recognizer()
@@ -84,6 +114,49 @@ def takeCommand():
         print("Say that again please...")
         return "None"
     return query
+
+# Detect Dark Mode
+def detect_darkmode_in_windows(): 
+    try:
+        import winreg
+    except ImportError:
+        return False
+    registry = winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER)
+    reg_keypath = r'SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize'
+    try:
+        reg_key = winreg.OpenKey(registry, reg_keypath)
+    except FileNotFoundError:
+        return False
+
+    for i in range(1024):
+        try:
+            value_name, value, _ = winreg.EnumValue(reg_key, i)
+            if value_name == 'AppsUseLightTheme':
+                return value == 0
+        except OSError:
+            break
+    return False
+
+# For News
+def news():
+    try:
+        response = requests.get(BASE_URL, params=params)
+        data = response.json()
+
+        if response.status_code == 200:
+            articles = data['articles']
+            top_headlines = []
+
+            for idx, article in enumerate(articles[:5], start=1):
+                title = str(article['title'])
+                source = article['source']['name']
+                print(f"{idx}. {title}")
+                speak(f"{title}")
+        else:
+            print("Error:", data['message'])
+
+    except Exception as e:
+        print("An error occurred:", e)
 
 # The Main Function
 if __name__=="__main__":
@@ -110,6 +183,22 @@ if __name__=="__main__":
             speak("Opening LUNA Documentation...")
             os.startfile("LUNA AI DOCUMENTATION.txt")
             time.sleep(5)
+
+        # Takes Feedback from the user
+        elif 'feedback' in query:
+            print("Thankyou for choosing feedback! Please tell me your name")
+            speak("Thankyou for choosing feedback! Please tell me your name")
+            name=input()
+            print("Please enter your rating out of 10")
+            speak("Please enter your rating out of 10")
+            try:
+                star=int(input())
+            except ValueError:
+                print("Invalid Input! Please enter again!")
+            print("Please tell if you want any other improvements :")
+            speak("Please tell if you want any other improvements :")
+            feed=input()
+            feedback(name,star,feed) 
 
         # Opens YouTube in your default browser
         elif 'open youtube' in query:
@@ -202,6 +291,20 @@ if __name__=="__main__":
                 print("This movie / series isn't released yet. Or It wasn't found in IMDB Movie Database.")
                 speak("This movie or series isn't released yet. Or It wasn't found in IMDB Movie Database.")
 
+        elif 'switch theme' in query:
+            if detect_darkmode_in_windows():
+                print("Switching to Light Mode")
+                speak("Switching to Light Mode")
+                command = ['reg.exe', 'add', 'HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize', '/v', 'AppsUseLightTheme', '/t', 'REG_DWORD', '/d', '1', '/f']
+            else:
+                print("Switching to Dark Mode")
+                speak("Switching to Dark Mode")
+                command = ['reg.exe', 'add', 'HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize', '/v', 'AppsUseLightTheme', '/t', 'REG_DWORD', '/d', '0', '/f']    
+            print("Theme switched successfully!")        
+            speak("Theme switched successfully!")     
+            time.sleep(3)   
+            subprocess.run(command)
+
         # Uses OpenAI API to Chat with the bot using GPT-3
         elif 'ask luna' in query:
             ask = query.replace('ask luna','')
@@ -220,6 +323,12 @@ if __name__=="__main__":
                 print(text)
                 speak(text)
                 time.sleep(5)
+        
+        elif 'news' in query:
+            print("Sure! Here's the top 5 trending headlines")
+            speak("Sure! Here's the top 5 trending headlines")
+            news()
+            time.sleep(10)
 
         # Displays the weather in "Hyderabad" only.
         elif 'weather today' in query:
