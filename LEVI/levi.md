@@ -1,0 +1,129 @@
+# LEVI (Language Enabled Virtual Assistant) Documentation
+
+**Author:** Srikar Veluvali
+
+## Description
+
+LEVI (Language Enabled Virtual Assistant) is a virtual assistant designed to provide various functionalities such as text-to-speech, information retrieval from Wikipedia, web browsing, music playback, weather forecasts, chat using the GPT-3 API, news headlines, system commands, and more.
+
+## Modules Used
+
+- `pyttsx3`: Microsoft Text-to-Speech engine.
+- `datetime`: For date and time functions.
+- `wikipedia`: For querying Wikipedia articles.
+- `webbrowser`: For opening web pages in a browser.
+- `spotipy`: For accessing the Spotify API for music playback.
+- `openai`: For interacting with the GPT-3 API.
+- `os`: For general file and system operations.
+- `time`: For time-related functions.
+- `requests`: For making HTTP requests.
+- `speedtest`: For testing internet speed.
+- `imdb`: For querying movie and series information.
+- `json`: For working with JSON data.
+- `subprocess`: For executing system commands.
+
+## API Setups
+
+- **Microsoft Text To Speech API:** Initializes the text-to-speech engine.
+- **Spotify Client:** Sets up the Spotify API credentials for music playback.
+- **OpenAI API:** Sets the API key for interacting with the GPT-3 API.
+- **Weather API:** Configures the API key for weather forecasts.
+- **Movies Database:** Sets up the IMDb API for querying movie and series information.
+- **News API:** Configures the API key and base URL for news headlines.
+
+## Functions
+
+- `speak(audio)`: Converts text to speech and speaks it.
+- `wishMe()`: Greets the user based on the time of day.
+- `feedback(name, stars, feed)`: Collects and stores user feedback.
+- `detect_darkmode_in_windows()`: Checks if dark mode is enabled on Windows.
+- `news()`: Retrieves and displays top news headlines.
+- *Main Function*: The main loop that interacts with the user and performs various actions based on user input.
+
+## Usage
+
+1. LEVI provides a command-line interface where users can input queries.
+2. Users can ask LEVI to perform actions like searching Wikipedia, playing music, getting weather forecasts, chatting using GPT-3, opening websites, and more.
+3. LEVI responds with both text and speech output.
+
+## Note
+
+- The code may require appropriate API keys and permissions to work correctly.
+- Make sure to install the required libraries before running the code.
+- Some features, like the GPT-3 chat, require access to external APIs and may need additional setup.
+
+For more information and updates, please refer to the project's official documentation.
+
+---
+
+## LEVI (Language Enabled Virtual Assistant) Commands
+
+Below is a list of commands that can be used with LEVI, along with a brief description of each command's functionality.
+
+### General Commands
+
+- `exit` or `quit`: Terminate the LEVI assistant.
+
+### Information Retrieval
+
+- `wikipedia [topic]`: Search for a topic on Wikipedia and provide a summary.
+
+### Feedback
+
+- `feedback`: Provide feedback about the assistant's performance.
+
+### Documentation
+
+- `levi help`: Open the LEVI AI documentation.
+
+### Web Browsing
+
+- `open site [URL]`: Open a specified website in the default web browser.
+- `open youtube`: Open YouTube in the default web browser.
+- `open google [search_query]`: Open Google homepage or perform a search.
+- `open chat gpt`: Open ChatGPT website.
+- `open bard`: Open Google Bard website.
+- `open leetcode`: Open LeetCode problems page.
+
+### Music Playback
+
+- `play music [song_name]`: Search and play music on Spotify.
+
+### Date and Time
+
+- `date today` or `day today`: Display the current date and day.
+- `time now`: Display the current time.
+
+### Movie Review
+
+- `movie review [movie_title]`: Display information and summary of a movie or series.
+
+### Chat with GPT-3
+
+- `ask levi [question]`: Engage in a conversation with the GPT-3 chatbot.
+
+### Weather Forecast
+
+- `weather today [city_name]`: Display the weather forecast for a specified city.
+
+### News Headlines
+
+- `news`: Display the top trending news headlines.
+
+### System Commands
+
+- `switch theme`: Switch between light and dark mode.
+- `open vs code`: Open Visual Studio Code.
+- `open games`: Open the games folder.
+- `open command prompt`: Open Command Prompt.
+- `open calculator`: Open Calculator.
+- `open notepad`: Open Notepad.
+- `internet speed`: Test and display the internet speed.
+
+### Remember and Forget
+
+- `remember that [message]`: Make LEVI remember a message.
+- `what do you remember`: Recall the remembered message.
+- `forget what you remember`: Clear the remembered message.
+
+Please note that LEVI's functionality depends on API integrations and external services, and some commands may require additional setup or permissions.

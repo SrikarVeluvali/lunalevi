@@ -1,5 +1,55 @@
-# LEVI (Language Enabled Virtual Assistant) by Srikar Veluvali
-# A virtual Assistant which makes Navigation easy.
+"""
+LEVI (Language Enabled Virtual Assistant) Documentation
+
+Author: Srikar Veluvali
+
+Description:
+LEVI (Language Enabled Virtual Assistant) is a virtual assistant designed to provide various functionalities such as text-to-speech, information retrieval from Wikipedia, web browsing, music playback, weather forecasts, chat using the GPT-3 API, news headlines, system commands, and more.
+
+Modules Used:
+- pyttsx3: Microsoft Text-to-Speech engine.
+- datetime: For date and time functions.
+- wikipedia: For querying Wikipedia articles.
+- webbrowser: For opening web pages in a browser.
+- spotipy: For accessing the Spotify API for music playback.
+- openai: For interacting with the GPT-3 API.
+- os: For general file and system operations.
+- time: For time-related functions.
+- requests: For making HTTP requests.
+- speedtest: For testing internet speed.
+- imdb: For querying movie and series information.
+- json: For working with JSON data.
+- subprocess: For executing system commands.
+
+API Setups:
+- Microsoft Text To Speech API: Initializes the text-to-speech engine.
+- Spotify Client: Sets up the Spotify API credentials for music playback.
+- OpenAI API: Sets the API key for interacting with the GPT-3 API.
+- Weather API: Configures the API key for weather forecasts.
+- Movies Database: Sets up the IMDb API for querying movie and series information.
+- News API: Configures the API key and base URL for news headlines.
+
+Functions:
+- speak(audio): Converts text to speech and speaks it.
+- wishMe(): Greets the user based on the time of day.
+- feedback(name, stars, feed): Collects and stores user feedback.
+- detect_darkmode_in_windows(): Checks if dark mode is enabled on Windows.
+- news(): Retrieves and displays top news headlines.
+- Main Function: The main loop that interacts with the user and performs various actions based on user input.
+
+Usage:
+1. LEVI provides a command-line interface where users can input queries.
+2. Users can ask LEVI to perform actions like searching Wikipedia, playing music, getting weather forecasts, chatting using GPT-3, opening websites, and more.
+3. LEVI responds with both text and speech output.
+
+Note:
+- The code may require appropriate API keys and permissions to work correctly.
+- Make sure to install the required libraries before running the code.
+- Some features, like the GPT-3 chat, require access to external APIs and may need additional setup.
+
+For more information and updates, please refer to the project's official documentation.
+
+"""
 
 # Modules Imported
 # Microsoft Text to Speech
@@ -25,6 +75,10 @@ import requests
 import speedtest
 # For Movies
 import imdb
+# For Json
+import json
+# For Settings
+import subprocess
 
 
 # API Setups
@@ -38,13 +92,23 @@ client_credentials_manager = SpotifyClientCredentials(client_id='371d72b411c146f
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # OpenAI API for General Chat
-openai.api_key = "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"
+openai.api_key = "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"
 
 # Weather API for Weather
 w_api_key = '30d4741c779ba94c470ca1f63045390a'
 
 # Movies DataBase
 moviesDB=imdb.IMDb()
+# NewsAPI
+API_KEY = 'e3135ebe96f24e92a0115a650856f339'
+BASE_URL = 'https://newsapi.org/v2/top-headlines'
+
+# Parameters for the request
+params = {
+    'country': 'in',  # You can change this to your desired country code
+    'apiKey': API_KEY
+}
+
 
 # Functions
 # Speak Function
@@ -66,6 +130,60 @@ def wishMe():
         speak("Good Evening")
     print("I am LEVI (v1.5). Language Enabled Virtual Intelligence. How may I help you today?")
     speak("I am LEVI . Language Enabled Virtual Intelligence. How may I help you today?")
+
+# Feedback Function
+def feedback(name, stars, feed):
+    feedback_data = {'name': name, 'stars': stars, 'Feedback': feed}
+    with open('feedback.json', 'a') as file:
+        json.dump(feedback_data, file)
+        file.write('\n')
+
+    print("Thankyou", name, "!", "Your feedback is valuable to us...")
+    speak("Thankyou "+ name+ "!"+" Your feedback is valuable to us...")
+    time.sleep(6)
+    os.system('cls')
+
+# Detect Darkmode
+def detect_darkmode_in_windows(): 
+    try:
+        import winreg
+    except ImportError:
+        return False
+    registry = winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER)
+    reg_keypath = r'SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize'
+    try:
+        reg_key = winreg.OpenKey(registry, reg_keypath)
+    except FileNotFoundError:
+        return False
+
+    for i in range(1024):
+        try:
+            value_name, value, _ = winreg.EnumValue(reg_key, i)
+            if value_name == 'AppsUseLightTheme':
+                return value == 0
+        except OSError:
+            break
+    return False
+
+# For News
+def news():
+    try:
+        response = requests.get(BASE_URL, params=params)
+        data = response.json()
+
+        if response.status_code == 200:
+            articles = data['articles']
+            top_headlines = []
+
+            for idx, article in enumerate(articles[:10], start=1):
+                title = str(article['title'])
+                source = article['source']['name']
+                print(f"{idx}. {title}")
+                speak(f"{title}")
+        else:
+            print("Error:", data['message'])
+    except Exception as e:
+        print("An error occurred:", e)
 
 # The Main Function
 if __name__=="__main__":
@@ -93,6 +211,20 @@ if __name__=="__main__":
             print(f"According to wikipedia,{results}")
             speak(f"According to wikipedia,{results}")
             
+        elif 'feedback' in query:
+            print("Enter your name :",end="")
+            speak("Enter your name")
+            name=input()
+            print("Please enter your rating out of 10")
+            speak("Please enter your rating out of 10")
+            try:
+                star=int(input())
+            except ValueError:
+                print("Invalid Input! Please enter again!")
+            print("Please tell if you want any other improvements :")
+            speak("Please tell if you want any other improvements :")
+            feed=input()
+            feedback(name,star,feed)            
 
         # Opens LEVI AI Documentation
         elif 'levi help' in query:
@@ -232,6 +364,28 @@ if __name__=="__main__":
                 print(f"The temperature in {city.title()} is: {round(celsius,2)}ºC")
                 speak(f"The weather in {city.title()} is: {weather}")
                 speak(f"The temperature in {city.title()} is: {round(celsius,2)}ºCelcius")
+        
+        # Displays the top 5 headlines
+        elif 'news' in query:
+            print("Sure! Here's the top 5 trending headlines")
+            speak("Sure! Here's the top 5 trending headlines")
+            news()
+            time.sleep(10)
+
+        # Switches the Theme
+        elif 'switch theme' in query:
+            if detect_darkmode_in_windows():
+                print("Switching to Light Mode")
+                speak("Switching to Light Mode")
+                command = ['reg.exe', 'add', 'HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize', '/v', 'AppsUseLightTheme', '/t', 'REG_DWORD', '/d', '1', '/f']
+            else:
+                print("Switching to Dark Mode")
+                speak("Switching to Dark Mode")
+                command = ['reg.exe', 'add', 'HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize', '/v', 'AppsUseLightTheme', '/t', 'REG_DWORD', '/d', '0', '/f']    
+            print("Theme switched successfully!")        
+            speak("Theme switched successfully!")     
+            time.sleep(3)   
+            subprocess.run(command)
 
         # Opens VS Code
         elif 'open vs code' in query:
