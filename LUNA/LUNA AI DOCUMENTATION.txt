@@ -1,75 +1,129 @@
-LUNA AI DOCUMENTATION
-=====================
-1. To search Wikipedia for information :
-	Try Saying : "Search in wikipedia for...." or "Wikipedia...."
+LUNA (Logical User-friendly Navigation Assistant) Documentation
 
-2. To open YouTube
-	Try Saying : "Open Youtube"
+Author: Srikar Veluvali
 
-3. To open Google
-	Try saying : "Open Google"
+Description:
 
-4. To search in google :
-	Try saying : "Open google and search..."
+LUNA (Logical User-friendly Navigation Assistant) is a virtual assistant designed to simplify navigation and provide a range of functionalities, including text-to-speech, Wikipedia information retrieval, web browsing, music playback, weather forecasts, chat using GPT-3 API, news headlines, system commands, and more.
 
-5. To open ChatGPT
-	Try saying : "Open Chat GPT"
+Modules Used:
 
-6. To open Google Bard:
-	Try saying : "Open bard"
+- pyttsx3: Microsoft Text-to-Speech engine.
+- datetime: Date and time functions.
+- wikipedia: Query Wikipedia articles.
+- webbrowser: Open web pages in a browser.
+- spotipy: Access the Spotify API for music playback.
+- openai: Interact with the GPT-3 API.
+- os: General file and system operations.
+- time: Time-related functions.
+- requests: Make HTTP requests.
+- speedtest: Test internet speed.
+- imdb: Query movie and series information.
+- json: Work with JSON data.
+- subprocess: Execute system commands.
 
-7. To open LeetCode:
-	Try saying : "Open leetcode"
+API Setups:
 
-8. To play music :
-	Must have: Spotify Desktop Client installed
-	Try saying : "Play Music {music name}"
+- Microsoft Text To Speech API: Initialize the text-to-speech engine.
+- Spotify Client: Set up Spotify API credentials for music playback.
+- OpenAI API: Set the API key for GPT-3 interaction.
+- Weather API: Configure the API key for weather forecasts.
+- Movies Database: Set up IMDb API for movie and series information.
+- News API: Configure the API key and base URL for news headlines.
 
-9. To show current time:
-	Try saying : "What's the time now?"
+Functions:
 
-10. To use GPT-3:
-	Try saying : "ask luna...."
+- speak(audio): Convert text to speech and audibly communicate.
+- wishMe(): Greet the user based on the time of day.
+- feedback(name, stars, feed): Collect and store user feedback.
+- detect_darkmode_in_windows(): Check if dark mode is enabled on Windows.
+- news(): Retrieve and display top news headlines.
+- Main Function: The central loop for user interaction and action execution.
 
-11. To display weather :
-	Try saying : "What's the weather today?"
+Usage:
 
-12. To Open VS Code:
-	Try saying : "Open vs code"
+1. LUNA offers a command-line interface for user queries.
+2. Users can instruct LUNA to perform tasks such as Wikipedia searches, music playback, weather forecasts, GPT-3 chat, website openings, and more.
+3. LUNA responds with both text and speech outputs.
 
-13. To Open Games folder:
-	Try saying : "Open Games"
+Note:
 
-14. To Open Calculator :
-	Try saying : "Open Calculator"
+- The code may require appropriate API keys and permissions.
+- Install the required libraries before running the code.
+- Some features, like GPT-3 chat, rely on external APIs and may need additional setup.
 
-15. To Open notepad:
-	Try saying : "open notepad"
+For further details and updates, refer to the official project documentation.
 
-16. To remember something:
-	Try saying "remember that,......"
-	
-    To display remembered text
-	Try saying : "what do you remember"
-    Note that LUNA can only remember one sentence at a time
-	
-    To forget remembered text
-	Try saying : "forget what you remember"
+---
 
-17. To check internet speed:
-	Try saying "Internet speed"
+LUNA (Logical User-friendly Navigation Assistant) Commands
 
-18. To PAUSE LUNA AI for 30 seconds:
-	Try saying "Pause"
+Here's a list of LUNA commands along with brief descriptions of their functionalities.
 
-19. To Exit LUNA AI:
-	Try saying "Exit" or "Quit"
+General Commands:
 
-20. To Open LUNA Help:
-	Try saying "LUNA Help"
+- exit or quit: Terminate the LUNA assistant.
 
-21. To check date and day:
-	Try saying "What's the date today?"
+Information Retrieval:
 
-22. To check Movie Review:
-	Try saying "Movie review {movie_name}"
+- wikipedia [topic]: Search Wikipedia for a topic and provide a summary.
+
+Feedback:
+
+- feedback: Provide feedback about the assistant's performance.
+
+Documentation:
+
+- luna help: Open the LUNA AI documentation.
+
+Web Browsing:
+
+- open site [URL]: Open a specified website in the default web browser.
+- open youtube: Open YouTube in the default web browser.
+- open google [search_query]: Open Google homepage or perform a search.
+- open chat gpt: Open ChatGPT website.
+- open bird: Open Google Bard website.
+- open leetcode: Open LeetCode problems page.
+
+Music Playback:
+
+- play music [song_name]: Search and play music on Spotify.
+
+Date and Time:
+
+- date today or day today: Display the current date and day.
+- time now: Display the current time.
+
+Movie Review:
+
+- movie review [movie_title]: Display information and summary of a movie or series.
+
+Chat with GPT-3:
+
+- ask luna [question]: Engage in a conversation with the GPT-3 chatbot.
+
+Weather Forecast:
+
+- weather today [city_name]: Display the weather forecast for a specified city.
+
+News Headlines:
+
+- news: Display the top trending news headlines.
+
+System Commands:
+
+- switch theme: Switch between light and dark mode.
+- open vs code: Open Visual Studio Code.
+- open games: Open the games folder.
+- open command prompt: Open Command Prompt.
+- open calculator: Open Calculator.
+- open notepad: Open Notepad.
+- internet speed: Test and display internet speed.
+
+Remember and Forget:
+
+- remember that [message]: Store a message for later recall.
+- what do you remember: Recall the stored message.
+- forget what you remember: Clear the stored message.
+
+Please note that LUNA's functionality relies on API integrations and external services, and some commands may require additional setup or permissions.
