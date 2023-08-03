@@ -88,19 +88,19 @@ voices=engine.getProperty('voices')
 engine.setProperty('voice',voices[0].id)
 
 # Spotify Client for Music
-client_credentials_manager = SpotifyClientCredentials(client_id='371d72b411c146f8b6f02a24a152cada', client_secret='8bb70d2587564f7b96a3ead85d000b55')
+client_credentials_manager = SpotifyClientCredentials(client_id='###', client_secret='###')
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # OpenAI API for General Chat
-openai.api_key = "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"
+openai.api_key = "###"
 
 # Weather API for Weather
-w_api_key = '30d4741c779ba94c470ca1f63045390a'
+w_api_key = '###'
 
 # Movies DataBase
 moviesDB=imdb.IMDb()
 # NewsAPI
-API_KEY = 'e3135ebe96f24e92a0115a650856f339'
+API_KEY = '###'
 BASE_URL = 'https://newsapi.org/v2/top-headlines'
 
 # Parameters for the request
